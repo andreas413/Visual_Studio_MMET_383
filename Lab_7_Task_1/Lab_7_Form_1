@@ -1,0 +1,63 @@
+Imports System.IO
+Imports System.Security.Cryptography.X509Certificates
+
+Public Class Form1
+
+    Public num_array(99) As Integer
+    Public current_quantity As Integer = 0
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+
+        Dim low_num As Integer = CInt(TextBox1.Text)
+        Dim high_num As Integer = CInt(TextBox2.Text)
+        current_quantity = CInt(TextBox3.Text)
+        Dim output_sting As String = " "
+
+        'Random number logic
+        Randomize()
+
+        For num As Integer = 0 To current_quantity - 1
+            num_array(num) = Int((high_num - low_num + 1) * Rnd() + low_num)
+            output_sting &= num_array(num) & " "
+
+            If (num + 1) Mod 10 = 0 Then
+                output_sting &= vbCrLf
+            End If
+        Next
+
+        RichTextBox1.Text = output_sting
+
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+
+        'Show form 2
+        Form2.Show()
+
+        'declare variables
+        Dim quantity As Integer = CInt(TextBox1.Text)
+        Dim low_num As Integer = CInt(TextBox2.Text)
+        Dim high_num As Integer = CInt(TextBox3.Text)
+
+        'Open file
+        FileOpen(1, "C:\Users\simon\source\repos\Lab_7_Task_1\bin\Debug\data.txt", OpenMode.Output)
+
+        For num As Integer = 0 To quantity - 1
+            Write(1, num_array(num))
+
+            If (num + 1) Mod 10 = 0 Then
+                WriteLine(1)
+            End If
+        Next
+
+        FileClose(1)
+        MsgBox("File saved successfully")
+
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Me.Close()
+
+    End Sub
+End Class

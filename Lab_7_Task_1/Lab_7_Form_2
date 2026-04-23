@@ -1,0 +1,41 @@
+Imports System.Windows.Forms.VisualStyles
+
+Public Class Form2
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim results_min As Integer = 9999999
+        Dim results_sum As Double = 0
+        Dim results_max As Integer = -99999999
+        Dim results_mean As Double
+        Dim current_quantity As Integer = CInt(Form1.current_quantity)
+
+        'Open file
+        FileOpen(1, "C:\Users\simon\source\repos\Lab_7_Task_1\bin\Debug\data.txt", OpenMode.Input)
+
+        'Loop through data from form 1
+        For num As Integer = 0 To Form1.current_quantity - 1
+            Dim current_val As Integer = Form1.num_array(num)
+
+            results_sum += current_val
+
+            If current_val > results_max Then
+                results_max = current_val
+            End If
+
+            If current_val < results_min Then
+                results_min = current_val
+            End If
+        Next
+
+        TextBox1.Text = Form1.current_quantity
+        TextBox2.Text = results_min
+        TextBox3.Text = results_max
+        results_mean = results_sum / current_quantity
+        TextBox4.Text = results_mean
+
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Me.Close()
+
+    End Sub
+End Class
